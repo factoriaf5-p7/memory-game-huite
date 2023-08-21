@@ -5,17 +5,17 @@ import Intro from "../pages/Intro";
 import { render } from "@testing-library/react";
 
 describe("components", () => {
-  it("should exist", () => {
-    const { getByText } = render(<Settings />);
+  it(" Settings exist", () => {
+    const { queryByText } = render(<Settings />);
 
-    expect(getByText("Settings")).toBeTruthy();
+    expect(queryByText("Settings")).toBeTruthy();
   });
-  it("should exist", () => {
+  it("Game exist", () => {
     const { getByText } = render(<Game />);
 
     expect(getByText("Game")).toBeTruthy();
   });
-  it("should exist", () => {
+  it("Intro exist", () => {
     const { getByText } = render(<Intro />);
 
     expect(getByText("Intro")).toBeTruthy();
