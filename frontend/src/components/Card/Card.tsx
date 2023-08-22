@@ -1,21 +1,22 @@
+import { useState } from 'react';
 import './Card.css';
 
-export interface CardProps {
-  onClick: () => void; // Define explícitamente onClick como una función que no toma argumentos y no devuelve nada.
-  isFlipped: boolean;
-  name: string;
-  img: string;
+interface CardProps {
+  // Si tienes propiedades, defínelas aquí
 }
 
-function Card({ onClick, isFlipped, name, img }: CardProps) {
+function Card(props: CardProps) {
+  const [isFlipped, setIsFlipped] = useState<boolean>(false);
+
+  const handleClick = () => {
+    setIsFlipped(!isFlipped);
+  };
+
   return (
-    <div
-      className={`card ${isFlipped ? 'flipped' : ''}`}
-      onClick={onClick}
-    >
-      <div className={`front ${isFlipped ? 'hidden' : ''}`}></div>
-      <div className={`back ${isFlipped ? '' : 'hidden'}`}>
-        <img src={img} alt={name} />
+    <div className={`card ${isFlipped ? 'flipped' : ''}`} onClick={handleClick}>
+      <div className="card-inner">
+        <div className="card-front">F</div>
+        <div className="card-back">B</div>
       </div>
     </div>
   );
