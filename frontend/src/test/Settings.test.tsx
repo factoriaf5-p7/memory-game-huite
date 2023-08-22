@@ -1,4 +1,4 @@
-import Settings from '../components/Settings';
+import Settings from '../pages/Settings';
 import {render,screen} from '@testing-library/react';
 import {
   MemoryRouter,

@@ -1,0 +1,10 @@
+#memory_board {
+  background:#dddddd;
+  display: flex;
+	width:fit-content;
+	height:fit-content;
+	padding:70px;
+	/* margin:8rem; */
+  border-radius: 84px;
+  box-shadow: inset 0px 0px 20px -6px rgba(97,89,97,1);
+}

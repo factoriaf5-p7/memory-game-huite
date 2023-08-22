@@ -1,4 +1,4 @@
-import Game from '../components/Game';
+import Game from '../pages/Game';
 import {render,screen} from '@testing-library/react';
 import {
   MemoryRouter,
