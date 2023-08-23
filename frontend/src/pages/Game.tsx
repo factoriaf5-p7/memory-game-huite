@@ -3,7 +3,8 @@ import Board from "../components/Board/Board"
 function Game() {
   return (
     <>
-    <Board />
+      <h1>Superhero Memory Game</h1>
+      <Board />
     </>
   )
 }
