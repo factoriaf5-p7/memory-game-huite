@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import './Board.css';
 import data from './../../data/data.json';
