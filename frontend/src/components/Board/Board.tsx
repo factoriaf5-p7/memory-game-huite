@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import './Board.css';
 import data from './../../data/data.json';
+import Score from '../Score/Score';
 
 interface CardData {
   img: string;
@@ -30,6 +31,7 @@ function Board() {
 
   const [cards, setCards] = useState<CardData[]>(initialCards);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
+  const [clickCount, setClickCount] = useState<number>(0); //estado para contar los clics
 
   const handleCardClick = (cardIndex: number) => {
     if (flippedCards.length < 2 && !cards[cardIndex].isMatched) {
@@ -62,10 +64,13 @@ function Board() {
         }, 1000);
       }
     }
+    // Incrementar el contador de clics cuando se hace click
+    setClickCount((prevClickCount) => prevClickCount + 1);
   };
 
   useEffect(() => {
     setCards(shuffleArray(initialCards));
+    setClickCount(0); // Reiniciar el contador de clics cuando se reinicia
   }, []);
 
   return (
@@ -82,7 +87,8 @@ function Board() {
           />
         ))}
       </div>
-    </div>
+      </div>
+      <Score moves={clickCount} />
     </>
   );
 }
