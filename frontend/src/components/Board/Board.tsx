@@ -22,9 +22,12 @@ function Board() {
   }
 
   return (
-    <div className="board-container"> {/*Se crea el tablero*/}
+    <>
+  <h1>Superhero Memory Game</h1>
+    <div className="board-container"> 
       <div id="memory_board">{grid}</div> {/*Se crea el tablero con las cartas*/}
     </div>
+    </>
   );
 }
 
