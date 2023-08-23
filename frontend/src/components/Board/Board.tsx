@@ -32,6 +32,7 @@ function Board() {
   const [cards, setCards] = useState<CardData[]>(initialCards);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [clickCount, setClickCount] = useState<number>(0); //estado para contar los clics
+  const [matchCount, setMatchCount] = useState<number>(0); //estado para contar los aciertos
 
   const handleCardClick = (cardIndex: number) => {
     if (flippedCards.length < 2 && !cards[cardIndex].isMatched) {
@@ -51,6 +52,7 @@ function Board() {
             newCards[cardIndex].isMatched = true;
             return newCards;
           });
+          setMatchCount((prevMatchCount) => prevMatchCount + 1); // Incrementar el contador de matches
         }
 
         setTimeout(() => {
@@ -88,7 +90,7 @@ function Board() {
         ))}
       </div>
       </div>
-      <Score moves={clickCount} />
+      <Score moves={clickCount} matches={matchCount} />
     </>
   );
 }

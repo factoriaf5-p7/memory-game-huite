@@ -1,15 +1,15 @@
-import React from 'react';
 import './Score.css';
 
 interface ScoreProps {
     moves: number;
+    matches: number;
 }
 
-const Score: React.FC<ScoreProps> = ({ moves }) => {
+function Score({ moves, matches }: ScoreProps) {
     return (
         <div id="score" className="score-container">
             <p>Moves: {moves}</p>
-            <p>Match: 00</p>
+            <p>Matches: {matches}</p>
         </div>
     );
 }
