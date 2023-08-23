@@ -1,15 +1,23 @@
 #score {
-  background-color: rgba(215, 44, 44, 0.8);;
-  border-radius: 8px;
-  font-size: 30px;
-  font-family: Arial;
-  width:200px;
-  height: 100px;
+  border: 3px solid rgb(255, 255, 255);
+  background-color: rgb(220, 230, 238);
+  border-radius: 10px;
+  font-size: 36px;
+  font-family: 'Arial', sans-serif;
+  width: fit-content;
+  height: fit-content;
   padding: 20px;
-  padding-top: 0;
   margin: 30px auto 0;
   text-align: center;
+  color: #000000;
+  box-shadow: 0px 7px 9px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.3s;
 }
+
+#score:hover {
+  transform: scale(1.05);
+}
+
 .score-container {
   display: flex;
   flex-direction: column;
@@ -17,3 +25,4 @@
   align-items: center;
   height: 100vh;
 }
+

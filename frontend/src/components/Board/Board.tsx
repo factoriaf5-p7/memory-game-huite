@@ -78,6 +78,8 @@ function Board() {
   return (
     <>
     <div className="board-container">
+    <div className="board-container2">
+
       <div id="memory_board">
         {cards.map((card, index) => (
           <Card
@@ -89,8 +91,9 @@ function Board() {
           />
         ))}
       </div>
-      </div>
       <Score moves={clickCount} matches={matchCount} />
+      </div>
+      </div>
     </>
   );
 }
