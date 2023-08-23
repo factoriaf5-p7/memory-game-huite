@@ -1,31 +1,88 @@
+import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import './Board.css';
 import data from './../../data/data.json';
 
-/* aca creamos un tablero de cartas utilizando datos aleatorios del archivo data.json. y se usa el componente Card para renderizar cada carta en la cuadrícula. */
+interface CardData {
+  img: string;
+  isFlipped: boolean;
+  isMatched: boolean;
+}
+
+function shuffleArray(array: any[]) {
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+}
 
 function Board() {
-  const numRows = 6; 
+  const numRows = 6;
   const numCols = 4;
 
-  const shuffledData = [...data].sort(() => Math.random() - 0.5); //// Se barajan los datos de las cartas aleatoriamente
+  const initialCards: CardData[] = data.map((card) => ({
+    ...card,
+    isFlipped: false,
+    isMatched: false,
+  }));
 
-  const grid = [];
-  // Hacemos una cuadrícula de cartas con un bucle anidado para repetir las cards una y otra vez
-  for (let row = 0; row < numRows; row++) {
-    const rowItems = [];
-    for (let col = 0; col < numCols; col++) {
-      const cardData = shuffledData[row * numCols + col];
-      rowItems.push(<Card key={`${row}-${col}`} img={cardData.img} />);
+  const [cards, setCards] = useState<CardData[]>(initialCards);
+  const [flippedCards, setFlippedCards] = useState<number[]>([]);
+
+  const handleCardClick = (cardIndex: number) => {
+    if (flippedCards.length < 2 && !cards[cardIndex].isMatched) {
+      setCards((prevCards) => {
+        const newCards = [...prevCards];
+        newCards[cardIndex].isFlipped = true;
+        return newCards;
+      });
+      setFlippedCards((prevFlippedCards) => [...prevFlippedCards, cardIndex]);
+
+      if (flippedCards.length === 1) {
+        const firstCardIndex = flippedCards[0];
+        if (cards[firstCardIndex].img === cards[cardIndex].img) {
+          setCards((prevCards) => {
+            const newCards = [...prevCards];
+            newCards[firstCardIndex].isMatched = true;
+            newCards[cardIndex].isMatched = true;
+            return newCards;
+          });
+        }
+
+        setTimeout(() => {
+          setCards((prevCards) => {
+            const newCards = [...prevCards];
+            newCards[firstCardIndex].isFlipped = false;
+            newCards[cardIndex].isFlipped = false;
+            return newCards;
+          });
+          setFlippedCards([]);
+        }, 1000);
+      }
     }
-    grid.push(<div key={row}>{rowItems}</div>);
-  }
+  };
+
+  useEffect(() => {
+    setCards(shuffleArray(initialCards));
+  }, []);
 
   return (
     <>
-  <h1>Superhero Memory Game</h1>
-    <div className="board-container"> 
-      <div id="memory_board">{grid}</div> {/*Se crea el tablero con las cartas*/}
+    <h1>Superhero Memory Game</h1>
+    <div className="board-container">
+      <div id="memory_board">
+        {cards.map((card, index) => (
+          <Card
+            key={index}
+            img={card.img}
+            isFlipped={card.isFlipped}
+            isMatched={card.isMatched}
+            onClick={() => handleCardClick(index)}
+          />
+        ))}
+      </div>
     </div>
     </>
   );
