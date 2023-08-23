@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import './Board.css';
 import data from './../../data/data.json';
@@ -70,7 +70,6 @@ function Board() {
 
   return (
     <>
-    <h1>Superhero Memory Game</h1>
     <div className="board-container">
       <div id="memory_board">
         {cards.map((card, index) => (
