@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
-import Card from '../Card/Card';
+import Card from '../Card/Card'; 
 import './Board.css';
-import data from './../../data/data.json';
-import Score from '../Score/Score';
-// import SettingsButton from '../SettingsButton/SettingsButton';
+import Score from '../Score/Score'; 
+import { getGameInfo } from '../../service/cardService'; 
 
+// Definimos la forma de los datos de la tarjeta.
 interface CardData {
-  img: string;
+  img_url: string;
+  card_id: string;
+  name: string;
   isFlipped: boolean;
   isMatched: boolean;
 }
 
+// Función para barajar las tarjetas
 function shuffleArray(array: any[]) {
   const shuffledArray = [...array];
   for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -20,21 +23,18 @@ function shuffleArray(array: any[]) {
   return shuffledArray;
 }
 
+//Función para duplicar las tarjetas
+function duplicateCards(cards: CardData[]): CardData[] {
+  return cards.flatMap(card => [card, { ...card }]);
+}
+
 function Board() {
-  const numRows = 6;
-  const numCols = 4;
+  const [cards, setCards] = useState<CardData[]>([]); // State to hold the card data
+  const [flippedCards, setFlippedCards] = useState<number[]>([]); // State to track flipped cards
+  const [clickCount, setClickCount] = useState<number>(0); // State to count the number of clicks
+  const [matchCount, setMatchCount] = useState<number>(0); // State to count the number of matches
 
-  const initialCards: CardData[] = data.map((card) => ({
-    ...card,
-    isFlipped: false,
-    isMatched: false,
-  }));
-
-  const [cards, setCards] = useState<CardData[]>(initialCards);
-  const [flippedCards, setFlippedCards] = useState<number[]>([]);
-  const [clickCount, setClickCount] = useState<number>(0); //estado para contar los clics
-  const [matchCount, setMatchCount] = useState<number>(0); //estado para contar los aciertos
-
+  // Funcion handle click para voltear las tarjetas
   const handleCardClick = (cardIndex: number) => {
     if (flippedCards.length < 2 && !cards[cardIndex].isMatched) {
       setCards((prevCards) => {
@@ -46,14 +46,14 @@ function Board() {
 
       if (flippedCards.length === 1) {
         const firstCardIndex = flippedCards[0];
-        if (cards[firstCardIndex].img === cards[cardIndex].img) {
+        if (cards[firstCardIndex].img_url === cards[cardIndex].img_url) {
           setCards((prevCards) => {
             const newCards = [...prevCards];
             newCards[firstCardIndex].isMatched = true;
             newCards[cardIndex].isMatched = true;
             return newCards;
           });
-          setMatchCount((prevMatchCount) => prevMatchCount + 1); // Incrementar el contador de matches
+          setMatchCount((prevMatchCount) => prevMatchCount + 1); // Increment the match count
         }
 
         setTimeout(() => {
@@ -67,35 +67,40 @@ function Board() {
         }, 1000);
       }
     }
-    // Incrementar el contador de clics cuando se hace click
-    setClickCount((prevClickCount) => prevClickCount + 1);
+    setClickCount((prevClickCount) => prevClickCount + 1); // Increment the click count
   };
 
+  // Funcion para obtener la informacion del juego
   useEffect(() => {
-    setCards(shuffleArray(initialCards));
-    setClickCount(0); // Reiniciar el contador de clics cuando se reinicia
+    getGameInfo()
+      .then(data => {
+        const shuffledData = shuffleArray(data);
+        const duplicatedData = duplicateCards(shuffledData);
+        setCards(duplicatedData);
+        setClickCount(0);
+      })
+      .catch(error => console.error('Error fetching game info:', error));
   }, []);
 
+  // Rendering del componente
   return (
     <>
-    <div className="board-container">
-    <div className="board-container2">
+      <div className="board-container">
+        <div className="board-container2">
 
-      <div id="memory_board">
-        {cards.map((card, index) => (
-          <Card
-            key={index}
-            img={card.img}
-            isFlipped={card.isFlipped}
-            isMatched={card.isMatched}
-            onClick={() => handleCardClick(index)}
-          />
-        ))}
-      </div>
-      <div className='board-right'>
-      <Score moves={clickCount} matches={matchCount} />
-      </div>
-      </div>
+          <div id="memory_board">
+            {cards.map((card, index) => (
+              <Card
+                key={index}
+                cardData={card}
+                isFlipped={card.isFlipped}
+                isMatched={card.isMatched}
+                onClick={() => handleCardClick(index)}
+              />
+            ))}
+          </div>
+          <Score moves={clickCount} matches={matchCount} />
+        </div>
       </div>
     </>
   );
