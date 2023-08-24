@@ -14,6 +14,11 @@ interface CardData {
   isMatched: boolean;
 }
 
+//Función para duplicar las tarjetas
+function duplicateCards(cards: CardData[]): CardData[] {
+  return cards.flatMap(card => [card, { ...card }]);
+}
+
 // Función para barajar las tarjetas
 function shuffleArray(array: any[]) {
   const shuffledArray = [...array];
@@ -24,10 +29,6 @@ function shuffleArray(array: any[]) {
   return shuffledArray;
 }
 
-//Función para duplicar las tarjetas
-function duplicateCards(cards: CardData[]): CardData[] {
-  return cards.flatMap(card => [card, { ...card }]);
-}
 
 function Board() {
   const [cards, setCards] = useState<CardData[]>([]); // State to hold the card data
@@ -75,9 +76,9 @@ function Board() {
   useEffect(() => {
     getGameInfo()
       .then(data => {
-        const shuffledData = shuffleArray(data);
-        const duplicatedData = duplicateCards(shuffledData);
-        setCards(duplicatedData);
+        const duplicatedData = duplicateCards(data); // Duplicar las cartas
+        const shuffledDuplicatedData = shuffleArray(duplicatedData); // Barajar las cartas duplicadas
+        setCards(shuffledDuplicatedData); // Asignar las cartas barajadas directamente
         setClickCount(0);
       })
       .catch(error => console.error('Error fetching game info:', error));
