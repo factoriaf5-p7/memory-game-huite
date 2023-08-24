@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import './Timer.css';
+import Alert from '..//LostGameAlert/LostGameAlert';
 
 function Timer({ selectedDifficulty }) {
-  // Define el tiempo inicial según la dificultad seleccionada
   const initialTime = selectedDifficulty === 'Medium' ? 60 : 45;
 
   const [seconds, setSeconds] = useState(initialTime);
+  const [isTimeUp, setIsTimeUp] = useState(false);
 
   useEffect(() => {
     let timer;
@@ -14,6 +15,9 @@ function Timer({ selectedDifficulty }) {
       timer = setTimeout(() => {
         setSeconds(seconds - 1);
       }, 1000);
+    } else {
+      // Cuando el tiempo llega a 0, establece isTimeUp en true
+      setIsTimeUp(true);
     }
 
     return () => {
@@ -23,12 +27,14 @@ function Timer({ selectedDifficulty }) {
 
   // Reiniciar el contador cuando cambie la dificultad
   useEffect(() => {
-    setSeconds(initialTime);
+    setSeconds(initialTime); 
+    setIsTimeUp(false); 
   }, [selectedDifficulty]);
 
   return (
     <div className="timer">
       <p>Time Left: {seconds} seconds</p>
+      {isTimeUp && <Alert message="You lost!" />} {/* Mostrar el componente Alert cuando isTimeUp es true */}
     </div>
   );
 }

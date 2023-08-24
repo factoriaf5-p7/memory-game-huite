@@ -1,0 +1,18 @@
+.alert {
+    color: #fff;
+    text-align: center;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+  }
+  
+  .alert p {
+    margin: 0;
+    font-size: 58px;
+    font-weight: bold;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+  }
+  

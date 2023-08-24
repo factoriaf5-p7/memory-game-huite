@@ -1,13 +1,4 @@
-/* Settings modal */
-.settings {
-    width: 90%;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
+ 
   .overlay {
     width: 100%;
     height: 100%;

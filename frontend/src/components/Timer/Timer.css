@@ -1,22 +1,22 @@
 .timer {
-  font-size: 36px;
+  font-size: 16px;
   text-align: center;
-  padding: 20px;
-  background-color: #000;
-  border: 2px solid #00ff00; /* Color verde neón */
+  padding: 10px;
+  background: rgb(55, 72, 107);
+  border: 2px solid rgba(53, 201, 238, 0.7);
   border-radius: 10px;
   margin-top: 20px;
-  color: #00ff00; /* Color verde neón */
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Sombra verde neón */
-  width: 200px;
+  color: white;
+  box-shadow: 0 0 10px rgba(53, 201, 238, 0.7); 
+  width: 150px;
 }
 
 .timer::before {
-  content: '\25B6'; /* Símbolo de reproducción triangular */
-  font-size: 24px;
-  color: #00ff00; /* Color verde neón */
+  content: '\25B6'; 
+  font-size: 20px;
+  color: white;
   margin-right: 5px;
-  animation: blink 2s infinite; /* Animación de parpadeo */
+  animation: blink 2s infinite; 
 }
 
 @keyframes blink {
