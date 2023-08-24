@@ -3,6 +3,7 @@ import Card from '../Card/Card';
 import './Board.css';
 import Score from '../Score/Score'; 
 import { getGameInfo } from '../../service/cardService'; 
+import Settings from '../Settings/Settings';
 
 // Definimos la forma de los datos de la tarjeta.
 interface CardData {
@@ -99,7 +100,10 @@ function Board() {
               />
             ))}
           </div>
+          <div className="board-right">
+          <Settings />
           <Score moves={clickCount} matches={matchCount} />
+          </div>
         </div>
       </div>
     </>

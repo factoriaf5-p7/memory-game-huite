@@ -1,0 +1,95 @@
+/* Settings modal */
+.settings {
+    width: 90%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+  
+  .modal {
+    position: fixed;
+    z-index: 20;
+    background: #fff;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 10px;
+  }
+  
+  .modal__header {
+    background: rgb(55, 72, 107);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .modal__main {
+    padding: 20px;
+  }
+  
+  .close-button {
+    border: none;
+    background: transparent;
+    padding: 10px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 36px;
+  }
+  
+  .close-button:hover {
+    color: rgb(181, 210, 219);
+  }
+  
+  /* Selection buttons */
+  .round-button {
+    background: #7e8c94;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+  }
+  
+  .theme-button,
+  .difficulty-button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .theme-button span,
+  .difficulty-button span {
+    margin-left: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .theme-button.selected span,
+  .difficulty-button.selected span {
+    text-shadow: 0 0 5px rgba(53, 201, 238, 0.7);
+    margin-left: 10px;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .theme-button.selected .round-button, .difficulty-button.selected .round-button {
+    background-color: rgba(53, 201, 238, 0.7);
+    box-shadow: 0 0 4px rgba(39, 146, 173, 0.7);
+  }
+  
