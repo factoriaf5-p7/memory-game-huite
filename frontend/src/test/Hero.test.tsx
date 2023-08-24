@@ -1,16 +1,16 @@
-import Hero from '../pages/Hero';
-import {render,screen} from '@testing-library/react';
-import {
-  MemoryRouter,
-} from "react-router-dom";
+import Hero from "../pages/Hero/Hero";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
-describe('Hero Page',()=>{
-    beforeEach(()=>{
-        render(<MemoryRouter initialEntries = {["/hero"]}>
-          <Hero/>
-        </MemoryRouter>)
-    });
-    test('Login should have a valid form',()=>{
-        expect(screen.getByText(/hero/i)).toBeInTheDocument();
-    })
-})
+describe("Hero Page", () => {
+  beforeEach(() => {
+    render(
+      <MemoryRouter initialEntries={["/hero"]}>
+        <Hero />
+      </MemoryRouter>
+    );
+  });
+  test("Login should have a valid form", () => {
+    expect(screen.getByText(/hero/i)).toBeInTheDocument();
+  });
+});

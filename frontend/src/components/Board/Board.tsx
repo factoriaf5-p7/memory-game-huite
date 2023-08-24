@@ -3,6 +3,7 @@ import Card from '../Card/Card';
 import './Board.css';
 import data from './../../data/data.json';
 import Score from '../Score/Score';
+// import SettingsButton from '../SettingsButton/SettingsButton';
 
 interface CardData {
   img: string;
@@ -91,7 +92,9 @@ function Board() {
           />
         ))}
       </div>
+      <div className='board-right'>
       <Score moves={clickCount} matches={matchCount} />
+      </div>
       </div>
       </div>
     </>

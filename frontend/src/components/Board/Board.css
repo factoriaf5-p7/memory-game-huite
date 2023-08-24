@@ -15,6 +15,13 @@
   gap: 2rem;
 }
 
+.board-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 #memory_board {
   display: grid;
   grid-template-columns: repeat(6, 1fr); 
