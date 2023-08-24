@@ -1,13 +1,17 @@
 import './Card.css';
 
 interface CardProps {
-  img: string;
+  cardData: {
+    card_id: string;
+    name: string;
+    img_url: string;
+  };
   isFlipped: boolean;
   isMatched: boolean;
   onClick: () => void;
 }
 
-function Card({ img, isFlipped, isMatched, onClick }: CardProps) {
+function Card({ cardData, isFlipped, isMatched, onClick }: CardProps) {
   return (
     <div
       className={`card ${isFlipped || isMatched ? 'flipped' : ''}`}
@@ -15,7 +19,10 @@ function Card({ img, isFlipped, isMatched, onClick }: CardProps) {
     >
       <div className="card-inner">
         <div className="card-front"></div>
-        <div className="card-back" style={{ backgroundImage: `url('/img/${img}')` }}></div>
+        <div
+          className="card-back"
+          style={{ backgroundImage: `url('${cardData.img_url}')` }}
+        ></div>
       </div>
     </div>
   );
