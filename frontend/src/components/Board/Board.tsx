@@ -77,22 +77,22 @@ function Board() {
 
   return (
     <>
-    <div className="board-container">
-    <div className="board-container2">
+      <div className="board-container">
+        <div className="board-container2">
 
-      <div id="memory_board">
-        {cards.map((card, index) => (
-          <Card
-            key={index}
-            img={card.img}
-            isFlipped={card.isFlipped}
-            isMatched={card.isMatched}
-            onClick={() => handleCardClick(index)}
-          />
-        ))}
-      </div>
-      <Score moves={clickCount} matches={matchCount} />
-      </div>
+          <div id="memory_board">
+            {cards.map((card, index) => (
+              <Card
+                key={index}
+                img={card.img}
+                isFlipped={card.isFlipped}
+                isMatched={card.isMatched}
+                onClick={() => handleCardClick(index)}
+              />
+            ))}
+          </div>
+          <Score moves={clickCount} matches={matchCount} />
+        </div>
       </div>
     </>
   );
