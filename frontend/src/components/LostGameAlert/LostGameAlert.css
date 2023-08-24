@@ -7,12 +7,67 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
   }
-  
-  .alert p {
+
+    
+  .alert h1 {
     margin: 0;
-    font-size: 58px;
+    font-size: 50px;
+    color: #fff;
     font-weight: bold;
     text-shadow: 0 4px 6px rgba(0, 0, 0, 1);
   }
   
+  .alert p {
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+  }
+  
+  .play-again-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  .play-again-container.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .yesNoButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  .yesNoButtons.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  .fade-in.active {
+    opacity: 1;
+    transform: translateY(0);
+  }

@@ -34,7 +34,7 @@ function Timer({ selectedDifficulty }) {
   return (
     <div className="timer">
       <p>Time Left: {seconds} seconds</p>
-      {isTimeUp && <Alert message="You lost!" />} {/* Mostrar el componente Alert cuando isTimeUp es true */}
+      {isTimeUp && <Alert message={''} /> } {/* Mostrar el componente Alert cuando isTimeUp es true */}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import './EndGame.css'
+import './WinGame.css'
 
 interface CompletionModalProps {
   onClose: () => void;
