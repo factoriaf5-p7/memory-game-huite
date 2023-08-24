@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Settings.css';
+import Timer from '../Timer/Timer';
 
 function Settings() {
   const [isOpen, setIsOpen] = useState(false);
@@ -98,6 +99,11 @@ function Settings() {
       <button className="button" onClick={openModal}>
         Settings
       </button>
+
+      {/* Renderizar el componente Timer solo si la dificultad es "Medium" o "Hard" */}
+      {(selectedDifficulty === 'Medium' || selectedDifficulty === 'Hard') && (
+        <Timer selectedDifficulty={selectedDifficulty} />
+      )}
     </div>
   );
 }
