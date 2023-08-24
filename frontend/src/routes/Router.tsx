@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Hero from "../pages/Hero/Hero";
+import Hero from "../pages/Hero";
 import Game from "../pages/Game";
-import Settings from "../pages/Settings";
+import Settings from "../pages/Settings/Settings";
 import { NotFound } from "../pages/NotFound";
 
 const routes = (

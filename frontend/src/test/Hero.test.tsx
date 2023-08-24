@@ -1,4 +1,4 @@
-import Hero from "../pages/Hero/Hero";
+import Hero from "../pages/Settings/Settings";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 

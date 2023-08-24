@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Hero.css';
+import './Settings.css';
 
-function Hero() {
+function Settings() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState('Superheroes');
   const [selectedDifficulty, setSelectedDifficulty] = useState('Easy');
@@ -102,4 +102,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default Settings;
