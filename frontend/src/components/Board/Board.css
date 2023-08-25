@@ -2,7 +2,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeInUp 1s ease-in-out;
 }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 .board-container2 {
   display: flex;

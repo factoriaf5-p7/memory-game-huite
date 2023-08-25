@@ -1,11 +1,11 @@
 .card {
-  margin: 2px;
-  width: 90px;
+  margin: 4px;
+  width: 80px;
   height: 100px;
   cursor: pointer;
-  opacity: 0; 
-  transform: translateY(20px); 
-  animation: fadeInUp 0.5s ease-out 0.3s forwards; 
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;  
+  animation: fadeInUp 1s ease-in-out;
 }
 
 @keyframes fadeInUp {
@@ -19,17 +19,23 @@
   }
 }
 
+
+.card:hover {
+  transform: scale(1.07); /* Cambia el tamaño al 110% cuando se hace hover */
+}
+
+
 .card-inner {
-  width: 93%;
-  height: 93%;
+  width: 100%;
+  height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.5s;
 }
 
 .card.flipped .card-inner {
   transform: rotateY(180deg);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
-  border: 2px solid rgba(255, 255, 255, 2); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 1.5px solid rgba(255, 255, 255, 2);
   border-radius: 5px;
 }
 
@@ -48,9 +54,9 @@
 
 .card-front {
   background: linear-gradient(135deg, #456783, #76a6c7, #456783);
-  border: 1px solid rgba(255, 255, 255, 0.2); 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  transform: perspective(1000px) rotateY(10deg); 
+  border: 1px solid white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: perspective(1000px) rotateY(10deg);
 }
 
 .card-back {

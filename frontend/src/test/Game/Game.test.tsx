@@ -1,16 +1,16 @@
-import Game from '../../pages/Game';
-import {render,screen} from '@testing-library/react';
-import {
-  MemoryRouter,
-} from "react-router-dom";
+import Game from "../../pages/Game/Game";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
-describe('Game Page',()=>{
-    beforeEach(()=>{
-        render(<MemoryRouter initialEntries = {["/game"]}>
-          <Game/>
-        </MemoryRouter>)
-    });
-    test('text Game should be render',()=>{
-        expect(screen.getByText(/game/i)).toBeInTheDocument();
-    })
-})
+describe("Game Page", () => {
+  beforeEach(() => {
+    render(
+      <MemoryRouter initialEntries={["/game"]}>
+        <Game />
+      </MemoryRouter>
+    );
+  });
+  test("text Game should be render", () => {
+    expect(screen.getByText(/game/i)).toBeInTheDocument();
+  });
+});
