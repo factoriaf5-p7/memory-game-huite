@@ -4,8 +4,8 @@ import './Board.css';
 import Score from '../Score/Score'; 
 import { getGameInfo } from '../../service/cardService'; 
 import Settings from '../Settings/Settings';
+import CompletionModal from '../WinGame/WinGame'; // Importa el componente WinGame
 
-// Definimos la forma de los datos de la tarjeta.
 interface CardData {
   img_url: string;
   card_id: string;
@@ -14,12 +14,10 @@ interface CardData {
   isMatched: boolean;
 }
 
-//Función para duplicar las tarjetas
 function duplicateCards(cards: CardData[]): CardData[] {
   return cards.flatMap(card => [card, { ...card }]);
 }
 
-// Función para barajar las tarjetas
 function shuffleArray(array: any[]) {
   const shuffledArray = [...array];
   for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -29,14 +27,13 @@ function shuffleArray(array: any[]) {
   return shuffledArray;
 }
 
-
 function Board() {
-  const [cards, setCards] = useState<CardData[]>([]); // State to hold the card data
-  const [flippedCards, setFlippedCards] = useState<number[]>([]); // State to track flipped cards
-  const [clickCount, setClickCount] = useState<number>(0); // State to count the number of clicks
-  const [matchCount, setMatchCount] = useState<number>(0); // State to count the number of matches
+  const [cards, setCards] = useState<CardData[]>([]); 
+  const [flippedCards, setFlippedCards] = useState<number[]>([]); 
+  const [clickCount, setClickCount] = useState<number>(0); 
+  const [matchCount, setMatchCount] = useState<number>(0); 
+  const [isGameWon, setIsGameWon] = useState<boolean>(false); // Nuevo estado
 
-  // Funcion handle click para voltear las tarjetas
   const handleCardClick = (cardIndex: number) => {
     if (flippedCards.length < 2 && !cards[cardIndex].isMatched) {
       setCards((prevCards) => {
@@ -55,7 +52,7 @@ function Board() {
             newCards[cardIndex].isMatched = true;
             return newCards;
           });
-          setMatchCount((prevMatchCount) => prevMatchCount + 1); // Increment the match count
+          setMatchCount((prevMatchCount) => prevMatchCount + 1);
         }
 
         setTimeout(() => {
@@ -66,30 +63,43 @@ function Board() {
             return newCards;
           });
           setFlippedCards([]);
+          
+          if (matchCount + 1 === cards.length / 2) {
+            setIsGameWon(true);
+          }
         }, 1000);
       }
     }
-    setClickCount((prevClickCount) => prevClickCount + 1); // Increment the click count
+    setClickCount((prevClickCount) => prevClickCount + 1);
   };
 
-  // Funcion para obtener la informacion del juego
   useEffect(() => {
     getGameInfo()
       .then(data => {
-        const duplicatedData = duplicateCards(data); // Duplicar las cartas
-        const shuffledDuplicatedData = shuffleArray(duplicatedData); // Barajar las cartas duplicadas
-        setCards(shuffledDuplicatedData); // Asignar las cartas barajadas directamente
+        const duplicatedData = duplicateCards(data);
+        const shuffledDuplicatedData = shuffleArray(duplicatedData);
+        setCards(shuffledDuplicatedData);
         setClickCount(0);
       })
       .catch(error => console.error('Error fetching game info:', error));
   }, []);
 
-  // Rendering del componente
+  const loadGame = () => {
+    getGameInfo()
+      .then(data => {
+        const duplicatedData = duplicateCards(data);
+        const shuffledDuplicatedData = shuffleArray(duplicatedData);
+        setCards(shuffledDuplicatedData);
+        setClickCount(0);
+        setMatchCount(0);
+      })
+      .catch(error => console.error('Error fetching game info:', error));
+  };
+  
   return (
     <>
       <div className="board-container">
         <div className="board-container2">
-
           <div id="memory_board">
             {cards.map((card, index) => (
               <Card
@@ -102,11 +112,21 @@ function Board() {
             ))}
           </div>
           <div className="board-right">
-          <Settings />
-          <Score moves={clickCount} matches={matchCount} />
+            <Settings />
+            <Score moves={clickCount} matches={matchCount} />
           </div>
         </div>
       </div>
+
+      {isGameWon && (
+  <CompletionModal
+    onClose={() => {
+      setIsGameWon(false);
+      setCards([]);
+      loadGame(); // Vuelve a cargar el juego
+    }}
+  />
+)}
     </>
   );
 }

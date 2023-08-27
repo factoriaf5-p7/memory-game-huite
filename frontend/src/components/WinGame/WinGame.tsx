@@ -10,7 +10,7 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ onClose }) => {
       <div className="modal-content">
         <h2>Congratulations!</h2>
         <p>You have completed the Memory Game.</p>
-        <button onClick={onClose}>Close</button>
+        <button className='play-again' onClick={onClose}>Play again</button>
       </div>
     </div>
   );
