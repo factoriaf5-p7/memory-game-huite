@@ -1,0 +1,55 @@
+.hero-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .hero-image {
+    width: 70vw;
+    height: 70vh;
+    animation: comicAnimation 4s ease-in-out infinite; /* Aplica la animación */
+    opacity: 0; /* Inicialmente, establece la opacidad en 0 para el efecto fade in */
+  }
+  
+  @keyframes comicAnimation {
+    0%, 100% {
+      opacity: 0; /* Inicio y final: completamente invisible */
+      transform: scale(0.5); /* Inicio y final: tamaño reducido */
+    }
+    50% {
+      opacity: 1; /* 50% de la animación: completamente visible */
+      transform: scale(1.2); /* 50% de la animación: tamaño agrandado */
+    }
+  }
+
+  .start-game {
+    background-color:rgba(255, 87, 34, 0.8);;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 44px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    outline: none;
+    text-decoration: none;
+    opacity: 0;
+    animation: startGameAnimation 2s ease-in-out forwards;
+  }
+  
+  @keyframes startGameAnimation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .start-game:hover {
+    background-color: #e64a19;
+  }
+  
