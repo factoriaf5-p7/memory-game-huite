@@ -32,7 +32,8 @@ function Board() {
   const [flippedCards, setFlippedCards] = useState<number[]>([]); 
   const [clickCount, setClickCount] = useState<number>(0); 
   const [matchCount, setMatchCount] = useState<number>(0); 
-  const [isGameWon, setIsGameWon] = useState<boolean>(false); // Nuevo estado
+  const [isGameWon, setIsGameWon] = useState<boolean>(false); 
+  
 
   const handleCardClick = (cardIndex: number) => {
     if (flippedCards.length < 2 && !cards[cardIndex].isMatched) {
