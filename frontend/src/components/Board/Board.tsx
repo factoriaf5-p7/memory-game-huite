@@ -4,7 +4,8 @@ import './Board.css';
 import Score from '../Score/Score'; 
 import { getGameInfo } from '../../service/cardService'; 
 import Settings from '../Settings/Settings';
-import CompletionModal from '../WinGame/WinGame'; // Importa el componente WinGame
+import CompletionModal from '../WinGame/WinGame'; 
+import Timer from '../Timer/Timer';
 
 interface CardData {
   img_url: string;
@@ -33,8 +34,14 @@ function Board() {
   const [clickCount, setClickCount] = useState<number>(0); 
   const [matchCount, setMatchCount] = useState<number>(0); 
   const [isGameWon, setIsGameWon] = useState<boolean>(false); // Nuevo estado
+  const [shouldStartTimer, setShouldStartTimer] = useState<boolean>(false); // Nuevo estado para el temporizador
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string>('Easy');
+
 
   const handleCardClick = (cardIndex: number) => {
+    if (!shouldStartTimer) {
+      setShouldStartTimer(true); // Inicia el temporizador
+    }
     if (flippedCards.length < 2 && !cards[cardIndex].isMatched) {
       setCards((prevCards) => {
         const newCards = [...prevCards];
@@ -112,8 +119,13 @@ function Board() {
             ))}
           </div>
           <div className="board-right">
-            <Settings />
+            <Settings setSelectedDifficulty={setSelectedDifficulty} setShouldStartTimer={function (): void {
+              throw new Error('Function not implemented.');
+            } } />
             <Score moves={clickCount} matches={matchCount} />
+            {selectedDifficulty !== 'Easy' && (
+              <Timer selectedDifficulty={selectedDifficulty} shouldStartTimer={shouldStartTimer} />
+            )}
           </div>
         </div>
       </div>
@@ -123,7 +135,7 @@ function Board() {
     onClose={() => {
       setIsGameWon(false);
       setCards([]);
-      loadGame(); // Vuelve a cargar el juego
+      loadGame(); 
     }}
   />
 )}

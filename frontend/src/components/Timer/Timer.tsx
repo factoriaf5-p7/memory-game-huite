@@ -1,41 +1,50 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Timer.css';
-import Alert from '..//LostGameAlert/LostGameAlert';
+import Alert from '../LostGameAlert/LostGameAlert';
 
-function Timer({ selectedDifficulty }) {
-  const initialTime = selectedDifficulty === 'Medium' ? 60 : 45;
+interface TimerProps {
+  selectedDifficulty: string;
+  shouldStartTimer: boolean;
+}
+
+const Timer: React.FC<TimerProps> = ({ selectedDifficulty, shouldStartTimer }) => {
+  const initialTime = selectedDifficulty === 'Hard' ? 45 : 60;
 
   const [seconds, setSeconds] = useState(initialTime);
   const [isTimeUp, setIsTimeUp] = useState(false);
 
   useEffect(() => {
-    let timer;
+    let timer: NodeJS.Timeout;
 
-    if (seconds > 0) {
+    if (shouldStartTimer && seconds > 0) {
       timer = setTimeout(() => {
         setSeconds(seconds - 1);
       }, 1000);
-    } else {
-      // Cuando el tiempo llega a 0, establece isTimeUp en true
+    } else if (seconds === 0) {
       setIsTimeUp(true);
     }
 
     return () => {
       clearTimeout(timer);
     };
-  }, [seconds, selectedDifficulty]);
+  }, [shouldStartTimer, seconds]);
 
-  // Reiniciar el contador cuando cambie la dificultad
   useEffect(() => {
-    setSeconds(initialTime); 
-    setIsTimeUp(false); 
-  }, [selectedDifficulty]);
+    if (shouldStartTimer) {
+      setSeconds(initialTime);
+      setIsTimeUp(false);
+    }
+  }, [shouldStartTimer]);
+
+  if (selectedDifficulty === 'Easy') {
+    return null;
+  }
 
   return (
     <div className="timer">
       <p>Time Left: <br />
         {seconds} seconds</p>
-      {isTimeUp && <Alert message={''} /> } {/* Mostrar el componente Alert cuando isTimeUp es true */}
+      {isTimeUp && <Alert message={''} />}
     </div>
   );
 }
