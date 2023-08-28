@@ -5,6 +5,7 @@ import Score from '../Score/Score';
 import { getGameInfo } from '../../service/cardService'; 
 import Settings from '../Settings/Settings';
 import CompletionModal from '../WinGame/WinGame'; // Importa el componente WinGame
+import { TimerProvider } from '../../contexts/TimerContext';
 
 interface CardData {
   img_url: string;
@@ -97,6 +98,7 @@ function Board() {
   };
   
   return (
+    <TimerProvider> 
     <>
       <div className="board-container">
         <div className="board-container2">
@@ -128,6 +130,8 @@ function Board() {
   />
 )}
     </>
+    
+    </TimerProvider>
   );
 }
 
