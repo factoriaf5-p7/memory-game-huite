@@ -1,6 +1,10 @@
 import './NoButton.css';
 
-function NoButton({ onClick }) {
+interface NoButtonProps {
+  onClick: () => void; 
+}
+
+function NoButton({ onClick }: NoButtonProps) {
   return (
     <button className="no-button" onClick={onClick}>
       No

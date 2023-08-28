@@ -8,7 +8,7 @@ interface AlertProps {
   onClose: () => void; // Agrega una función onClose prop
 }
 
-const Alert: React.FC<AlertProps> = ({ message, onClose }) => {
+const Alert: React.FC<AlertProps> = ({ onClose }) => {
   const [showPlayAgain, setShowPlayAgain] = useState(false);
 
   // Función para reiniciar el juego (recargar la página)

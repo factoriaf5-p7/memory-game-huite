@@ -13,7 +13,7 @@ const Timer: React.FC<TimerProps> = ({ selectedDifficulty, shouldStartTimer }) =
   const [seconds, setSeconds] = useState(initialTime);
   const [isTimeUp, setIsTimeUp] = useState(false);
 
-  // Actualiza el temporizador solo cuando startTimer sea verdadero
+  // Agrega initialTime como dependencia
   useEffect(() => {
     let timer: NodeJS.Timeout;
 
@@ -28,14 +28,14 @@ const Timer: React.FC<TimerProps> = ({ selectedDifficulty, shouldStartTimer }) =
     return () => {
       clearTimeout(timer);
     };
-  }, [shouldStartTimer, seconds]);
+  }, [shouldStartTimer, seconds, initialTime]); // Agrega initialTime aquí
 
   useEffect(() => {
     if (shouldStartTimer) {
       setSeconds(initialTime);
       setIsTimeUp(false);
     }
-  }, [shouldStartTimer]);
+  }, [shouldStartTimer, initialTime]); // Agrega initialTime aquí
 
   if (selectedDifficulty === 'Easy') {
     return null;
@@ -45,7 +45,7 @@ const Timer: React.FC<TimerProps> = ({ selectedDifficulty, shouldStartTimer }) =
     <div className="timer">
       <p>Time Left: <br />
         {seconds} seconds</p>
-      {isTimeUp && <Alert message={''} />}
+      {isTimeUp && <Alert message={''} onClose={() => {}} />} 
     </div>
   );
 }

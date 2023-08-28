@@ -1,6 +1,11 @@
+
 import './YesButton.css';
 
-function YesButton({ onClick }) {
+interface YesButtonProps {
+  onClick: () => void; 
+}
+
+function YesButton({ onClick }: YesButtonProps) {
   return (
     <button className="yes-button" onClick={onClick}>
       Yes
