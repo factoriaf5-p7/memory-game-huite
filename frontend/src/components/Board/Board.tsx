@@ -104,7 +104,6 @@ function Board() {
   };
   
   return (
-    <TimerProvider> 
     <>
       <div className="board-container">
         <div className="board-container2">
@@ -141,8 +140,6 @@ function Board() {
   />
 )}
     </>
-    
-    </TimerProvider>
   );
 }
 
