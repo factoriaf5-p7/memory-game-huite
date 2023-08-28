@@ -8,8 +8,8 @@
   }
   
   .hero-image {
-    width: 70vw;
-    height: 70vh;
+    width: 50vw;
+    height: auto;
     animation: comicAnimation 4s ease-in-out infinite; /* Aplica la animación */
     opacity: 0; /* Inicialmente, establece la opacidad en 0 para el efecto fade in */
   }
