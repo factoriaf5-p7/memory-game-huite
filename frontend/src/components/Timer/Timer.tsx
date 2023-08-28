@@ -1,20 +1,23 @@
-import  { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Timer.css';
 import Alert from '../LostGameAlert/LostGameAlert';
-import { useTimerContext } from '../../contexts/TimerContext.tsx'; 
 
-function Timer({ selectedDifficulty }) {
-  const initialTime = selectedDifficulty === 'Medium' ? 60 : 45;
-  const { startTimer, setStartTimer } = useTimerContext();
+interface TimerProps {
+  selectedDifficulty: string;
+  shouldStartTimer: boolean;
+}
+
+const Timer: React.FC<TimerProps> = ({ selectedDifficulty, shouldStartTimer }) => {
+  const initialTime = selectedDifficulty === 'Hard' ? 45 : 60;
 
   const [seconds, setSeconds] = useState(initialTime);
   const [isTimeUp, setIsTimeUp] = useState(false);
 
   // Actualiza el temporizador solo cuando startTimer sea verdadero
   useEffect(() => {
-    let timer;
+    let timer: NodeJS.Timeout;
 
-    if (startTimer && seconds > 0) {
+    if (shouldStartTimer && seconds > 0) {
       timer = setTimeout(() => {
         setSeconds(seconds - 1);
       }, 1000);
@@ -25,12 +28,18 @@ function Timer({ selectedDifficulty }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [seconds, startTimer]);
+  }, [shouldStartTimer, seconds]);
 
   useEffect(() => {
-    setSeconds(initialTime);
-    setIsTimeUp(false);
-  }, [selectedDifficulty]);
+    if (shouldStartTimer) {
+      setSeconds(initialTime);
+      setIsTimeUp(false);
+    }
+  }, [shouldStartTimer]);
+
+  if (selectedDifficulty === 'Easy') {
+    return null;
+  }
 
   return (
     <div className="timer">

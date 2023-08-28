@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './Settings.css';
 import SettingsButton from './SettingsButton/SettingsButton';
 import SettingsModal from './SettingsModal/SettingsModal';
-import Timer from '../Timer/Timer';
 
-function Settings() {
+interface SettingsProps {
+  setSelectedDifficulty: React.Dispatch<React.SetStateAction<string>>;
+  setShouldStartTimer: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function Settings({ setSelectedDifficulty, setShouldStartTimer }: SettingsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState('Superheroes');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('Easy');
+  const [selectedDifficulty, setSelectedDifficultyLocal] = useState('Easy');
 
   const openModal = () => {
     setIsOpen(true);
@@ -17,12 +21,14 @@ function Settings() {
     setIsOpen(false);
   };
 
-  const handleThemeClick = (theme) => {
+  const handleThemeClick = (theme: string) => {
     setSelectedTheme(theme);
   };
 
-  const handleDifficultyClick = (difficulty) => {
+  const handleDifficultyClick = (difficulty: string) => {
+    setSelectedDifficultyLocal(difficulty);
     setSelectedDifficulty(difficulty);
+    setShouldStartTimer(false); 
   };
 
   return (
@@ -36,10 +42,6 @@ function Settings() {
         selectedDifficulty={selectedDifficulty}
         handleDifficultyClick={handleDifficultyClick}
       />
-      {/* Renderizar el componente Timer solo si la dificultad es "Medium" o "Hard" */}
-      {(selectedDifficulty === 'Medium' || selectedDifficulty === 'Hard') && (
-        <Timer selectedDifficulty={selectedDifficulty} />
-      )}
     </div>
   );
 }
